@@ -1,0 +1,56 @@
+#jf-formattedJSON * {
+	cursor: default;
+	font-family: monospace;
+}
+
+.jf-string {
+	color: #C6B22B; 
+}
+
+.jf-number {
+	color: #5C8A49;
+}
+
+.jf-date {
+	color: #CD5665;
+}
+
+.jf-boolean {
+	color: #CC6218;
+}
+
+#jf-formattedJSON .jf-collapsible-title {
+	cursor: pointer;
+}
+
+.jf-collapsible-title .jf-key:hover {
+	font-weight: bold;
+	background-color: #ECECEC;
+	padding: 2px;
+	border-radius: 4px;
+	border-color: none;
+}
+
+.jf-indents {
+	color: #444943;
+}
+
+.jf-collapsible {
+	margin-top: 2px; 
+}
+
+.jf-hide {
+	display: none;
+}
+
+.jf-ellipses {
+	color: #AC382D;
+}
+
+.jf-highlight {
+  background-color:#AECAE0; 
+}
+
+.jf-obj-open-brace, .jf-obj-close-brace, .jf-arr-open-brace, .jf-arr-close-brace {
+  font-weight: bold;
+}
