@@ -102,7 +102,7 @@
 		
 		return this.each(function() {
 			try {
-				var json = $.parseJSON(jsonSource) || $.parseJSON($(this).text());
+				var json = jsonSource ? $.parseJSON(jsonSource) : $.parseJSON($(this).text());
 			}catch(ex) {
 				if(console && console.log) {
 					console.log("Invalid Json "+ex);
