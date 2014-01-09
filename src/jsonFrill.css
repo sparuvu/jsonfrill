@@ -4,7 +4,7 @@
 }
 
 .jf-string {
-	color: #C6B22B; 
+	color: #C6B22B;
 }
 
 .jf-number {
@@ -36,7 +36,7 @@
 }
 
 .jf-collapsible {
-	margin-top: 2px; 
+	margin-top: 2px;
 }
 
 .jf-hide {
@@ -47,8 +47,8 @@
 	color: #AC382D;
 }
 
-.jf-highlight {
-  background-color:#AECAE0; 
+#jf-formattedJSON .jf-highlight {
+  background-color:#AECAE0;
 }
 
 .jf-obj-open-brace, .jf-obj-close-brace, .jf-arr-open-brace, .jf-arr-close-brace {
