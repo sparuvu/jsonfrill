@@ -1,13 +1,19 @@
 ;(function ( $, window, document, undefined ) {
     $.fn.jsonFrill = function(jsonSource, options) {
-       var jf = {}, 
-            _indentationLevel = 1,
-            lineBreak = "</br>",
+        var jf = {}, 
+            _indentationLevel = 1, 
+            lineBreak = "</br>", 
             seperator = " : ",
-            objOpenBrace = $('<span />').addClass('jf-obj-open-brace').text('{')[0].outerHTML,
-            objCloseBrace = $('<span />').addClass('jf-obj-close-brace').text('}')[0].outerHTML,
-            arrOpenBrace = $('<span />').addClass('jf-arr-close-brace').text('[')[0].outerHTML,
-            arrCloseBrace = $('<span />').addClass('jf-arr-close-brace').text(']')[0].outerHTML,
+            braces = {
+              "object": {
+                  open: $('<span />').addClass('jf-obj-open-brace').text('{')[0].outerHTML,
+                  close: $('<span />').addClass('jf-obj-close-brace').text('}')[0].outerHTML
+              },  
+              "array": {
+                  open: $('<span />').addClass('jf-arr-close-brace').text('[')[0].outerHTML,
+                  close: $('<span />').addClass('jf-arr-close-brace').text(']')[0].outerHTML
+              }  
+            },
             $pre = $('<pre />').css('margin', 0),
             $ellipses = $('<span />').addClass('jf-ellipses jf-hide').text('...');
             
@@ -38,48 +44,36 @@
                 var key = $('<span />').addClass('jf-key').html(key)[0].outerHTML;
                 return $('<span />').addClass(jfClass).html(addSpaces() + key)[0].outerHTML;
             }
-            return $('<span />').addClass('jf-key ' + jfClass).html(addSpaces() + key)[0].outerHTML; 
+            return $('<span />').addClass('jf-key ' + jfClass).html(addSpaces() + key)[0].outerHTML;    
         }
         
         function processNonPrimitive(openBrace, closeBrace, key, value) {
-            var temp = getKey(key, "jf-collapsible-title");
-            _indentationLevel++;                        
-            temp += seperator + openBrace + $ellipses.clone()[0].outerHTML + lineBreak + process(value, true);
+            var temp = "";
+            _indentationLevel++;
+            var str = process(value, true);
             _indentationLevel--;
-            temp +=  addSpaces() + closeBrace;
-            return $pre.clone().addClass('jf-collapsible').html(temp)[0].outerHTML;
+            if(str) {
+                temp = getKey(key, "jf-collapsible-title") + seperator + openBrace + $ellipses.clone()[0].outerHTML + lineBreak + str + addSpaces() + closeBrace;
+            } else {
+                temp = getKey(key) + seperator + openBrace + closeBrace;
+            }            
+            return $pre.clone().addClass('jf-collapsible').html(temp)[0].outerHTML;                
         }
-        
+                
         function process(obj, flag) {
-            var str = "";
-            $.each(obj, function(key, value) {              
-                switch($.type(value)) {
-                    case "object":
-                        str += processNonPrimitive(objOpenBrace, objCloseBrace, key, value);
-                        break;                  
-                    case "array":
-                        str += processNonPrimitive(arrOpenBrace, arrCloseBrace, key, value);
-                        break;
-                    case "date":                        
-                        str += processPrimitive(key, value, "date"); 
-                        flag = false;
-                        break;
-                    case "boolean": 
-                        str += processPrimitive(key, value, "boolean");
-                        flag = false;
-                        break;
-                    case "number": 
-                        str += processPrimitive(key, value, "number");
-                        flag = false;
-                        break;
-                    case "string": 
-                        str += processPrimitive(key, value, "string");
-                        flag = false;
-                        break;
-                    default: 
-                        break;      
-                }       
-            });         
+            var str = "";            
+            if($.isEmptyObject(obj)) {
+                return false;
+            }
+            for (var key in obj) {
+                var type = $.type(obj[key]); 
+                if(type == "object" || type == "array") {
+                    str += processNonPrimitive(braces[type].open, braces[type].close, key, obj[key]);
+                } else {
+                    str += processPrimitive(key, obj[key], type);
+                    flag = false;
+                }
+            }
             return str;
         }
         
@@ -95,19 +89,18 @@
                 e.preventDefault();
                 toggleObjects($(this));
             });
-                
-            $('#jf-formattedJSON').find("*").hover(function(e){
-                $('pre.jf-highlight').removeClass('jf-highlight');
+            
+            $('div.jf-prop').hover(function(e) {
                   $(this).closest('pre.jf-collapsible').addClass('jf-highlight');
                   e.preventDefault();
-                }, function(e){
+                },
+                function(e) {
                   $(this).closest('pre.jf-collapsible').removeClass('jf-highlight');
                   e.preventDefault();
             });
         }
         
         return this.each(function() {
-            var json;
             try {
                 if(jsonSource) {                    
                     if($.type(jsonSource) == "object" || $.type(jsonSource) == "array") {
@@ -126,15 +119,18 @@
                 }
                 return;
             }
-            var str = objOpenBrace + process(json, false);
-            _indentationLevel--;
-            str += addSpaces() + objCloseBrace;
-            $(this).html($pre.clone().addClass('jf-collapsible').attr('id', 'jf-formattedJSON').html(str));
-            
+            var str = process(json, false), type = $.type(json);
+            if(str) {
+                _indentationLevel--;
+                str = braces[type].open + str + addSpaces() + braces[type].close;
+                $(this).html($pre.clone().addClass('jf-collapsible').attr('id', 'jf-formattedJSON').html(str));                
+            } else {
+                $(this).html($pre.clone().html(braces[type].open + braces[type].close));                                    
+            }            
             bindings();
             if(jf.settings.collapse) {
-                toggleObjects($('#jf-formattedJSON .jf-collapsible-title'));                
+                toggleObjects($('#jf-formattedJSON .jf-collapsible-title'));
             }
         });
     };
-})(jQuery, window, document);
+})(jQuery, window, document);   
