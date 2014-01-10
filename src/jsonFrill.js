@@ -1,3 +1,13 @@
+/*!
+ * jQuery jsonFrill plugin v0.1
+ * https://github.com/sparuvu/jsonFrill
+ * 
+ * Released under the MIT license
+ * https://raw.github.com/sparuvu/jsonFrill/master/LICENSE
+ *
+ * Date: 2014-1-9
+ */
+
 ;(function ( $, window, document, undefined ) {
     $.fn.jsonFrill = function(jsonSource, options) {
         var jf = {}, 
