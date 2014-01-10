@@ -19,7 +19,7 @@
 	color: #CC6218;
 }
 
-#jf-formattedJSON .jf-collapsible-title {
+#jf-formattedJSON .jf-collapsible-title .jf-key{
 	cursor: pointer;
 }
 
