@@ -30,11 +30,11 @@
 	color: #CC6218;
 }
 
-#jf-formattedJSON .jf-collapsible-title .jf-key{
+#jf-formattedJSON .jf-collapsible-title .jf-key, #jf-formattedJSON .jf-parent-brace{
 	cursor: pointer;
 }
 
-.jf-collapsible-title .jf-key:hover {
+.jf-collapsible-title .jf-key:hover, .jf-parent-brace:hover {
 	font-weight: bold;
 	background-color: #ECECEC;
 	padding: 2px;
@@ -62,6 +62,17 @@
   background-color:#AECAE0;
 }
 
-.jf-obj-open-brace, .jf-obj-close-brace, .jf-arr-open-brace, .jf-arr-close-brace {
-  font-weight: bold;
+#jf-formattedJSON .jf-brace {
+  font-weight: normal;
+  font-family: "helvetica neue", sans-serif;
+}
+
+div.jf-prop span {
+	display: inline-block;
+	vertical-align: top;
+}
+
+span.jf-value {
+  word-wrap: break-word;
+	max-width: 550px;
 }
