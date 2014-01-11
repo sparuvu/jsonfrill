@@ -60,6 +60,7 @@
 
 #jf-formattedJSON .jf-highlight {
   background-color:#AECAE0;
+  border-radius: 5px;
 }
 
 #jf-formattedJSON .jf-brace {
