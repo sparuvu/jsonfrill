@@ -13,48 +13,44 @@
         var jf = {}, 
             _indentationLevel = 1, 
             lineBreak = "</br>", 
-            seperator = $('<span />').text(" : ")[0].outerHTML,
+            seperator = $(document.createElement('span')).text(" : ")[0].outerHTML,
             braces = {
-              "object": {
-                  open: $('<span />').addClass('jf-brace').text('{')[0].outerHTML,
-                  close: $('<span />').addClass('jf-brace').text('}')[0].outerHTML
+              "object": {                  
+                  open: $(document.createElement('span')).addClass('jf-brace').text('{')[0].outerHTML,
+                  close: $(document.createElement('span')).addClass('jf-brace').text('}')[0].outerHTML
               },  
               "array": {
-                  open: $('<span />').addClass('jf-brace').text('[')[0].outerHTML,
-                  close: $('<span />').addClass('jf-brace').text(']')[0].outerHTML
+                  open: $(document.createElement('span')).addClass('jf-brace').text('[')[0].outerHTML,
+                  close: $(document.createElement('span')).addClass('jf-brace').text(']')[0].outerHTML
               }  
             },
-            $pre = $('<pre />').css('margin', 0),
-            $ellipses = $('<span />').addClass('jf-ellipses jf-hide').text('...');
+            $pre = $(document.createElement('pre')).css('margin', 0),
+            $ellipses = $(document.createElement('span')).addClass('jf-ellipses jf-hide').text('...');
             
         jf.settings = $.extend({
             'collapse': false
         }, options);
         
         function processPrimitive(key, value, type) {
-            var valueHtml = $('<span />').addClass('jf-value  jf-' + type).text(value)[0].outerHTML; 
-            return $pre.clone().html($('<div />').addClass('jf-prop').html(getKey(key) + seperator + valueHtml)[0].outerHTML)[0].outerHTML;
+            var valueHtml = $(document.createElement('span')).addClass('jf-value  jf-' + type).text(value)[0].outerHTML; 
+            return $pre.clone().html($(document.createElement('div')).addClass('jf-prop').html(getKey(key) + seperator + valueHtml)[0].outerHTML)[0].outerHTML;
         }
         
         function addSpaces() {
             var emptyString = "";
             for(var i = 0; i< _indentationLevel; i++) {
-                if(i % 2 == 0) {
-                    emptyString += "  ";
-                    continue;                   
-                }
-                emptyString += "| ";
+                emptyString += (i % 2 == 0) ? "  " : "| ";
             }
-            return $('<span />').addClass('jf-indents').text(emptyString)[0].outerHTML;
+            return $(document.createElement('span')).addClass('jf-indents').text(emptyString)[0].outerHTML;
         }
         
         function getKey(key, jfClass) {
             jfClass = jfClass || "";
             if(jfClass) {
-                var key = $('<span />').addClass('jf-key').html(key)[0].outerHTML;
-                return $('<span />').addClass(jfClass).html(addSpaces() + key)[0].outerHTML;
+                var key = $(document.createElement('span')).addClass('jf-key').html(key)[0].outerHTML;
+                return $(document.createElement('span')).addClass(jfClass).html(addSpaces() + key)[0].outerHTML;
             }
-            return $('<span />').addClass('jf-key ' + jfClass).html(addSpaces() + key)[0].outerHTML;    
+            return $(document.createElement('span')).addClass('jf-key ' + jfClass).html(addSpaces() + key)[0].outerHTML;    
         }
         
         function processNonPrimitive(openBrace, closeBrace, key, value) {
