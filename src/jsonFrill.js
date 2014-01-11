@@ -65,7 +65,7 @@
             if(str) {
                 temp = getKey(key, "jf-collapsible-title") + seperator + openBrace + $ellipses.clone()[0].outerHTML + lineBreak + str + addSpaces() + closeBrace;
             } else {
-                temp = getKey(key) + seperator + openBrace + closeBrace;
+                temp = getKey(key) + seperator + openBrace + " " + closeBrace;
             }            
             return $pre.clone().addClass('jf-collapsible').html(temp)[0].outerHTML;                
         }
