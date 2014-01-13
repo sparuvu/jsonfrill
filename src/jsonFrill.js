@@ -9,7 +9,7 @@
  */
 
 ;(function ( $, window, document, undefined ) {
-    $.fn.jsonFrill = function(jsonSource, options) {
+    $.fn.jsonFrill = function(options, jsonSource) {
         var jf = {}, 
             _indentationLevel = 1, 
             lineBreak = "</br>", 
@@ -39,7 +39,7 @@
         function addSpaces() {
             var emptyString = "";
             for(var i = 0; i< _indentationLevel; i++) {
-                emptyString += (i % 2 == 0) ? "  " : "| ";
+                emptyString += "| " ;
             }
             return $(document.createElement('span')).addClass('jf-indents').text(emptyString)[0].outerHTML;
         }
@@ -47,7 +47,7 @@
         function getKey(key, jfClass) {
             jfClass = jfClass || "";
             if(jfClass) {
-                var key = $(document.createElement('span')).addClass('jf-key').html(key)[0].outerHTML;
+                var key = $(document.createElement('span')).addClass('jf-key jf-collapse').html(key)[0].outerHTML;
                 return $(document.createElement('span')).addClass(jfClass).html(addSpaces() + key)[0].outerHTML;
             }
             return $(document.createElement('span')).addClass('jf-key ' + jfClass).html(addSpaces() + key)[0].outerHTML;    
@@ -85,13 +85,14 @@
         
         function toggleObjects($obj, collapse) {
             $obj.each(function() {
-                if(collapse) {
-                    $(this).closest('pre.jf-collapsible').children('pre').toggle();
-                    $(this).siblings('.jf-ellipses').toggleClass('jf-hide');                                        
+                var $this = $(this);
+                 if(collapse) {
+                    $this.closest('pre.jf-collapsible').children('pre').toggle();
                 } else {
-                    $(this).closest('pre.jf-collapsible').children('pre').slideToggle();
-                    $(this).siblings('.jf-ellipses').fadeToggle();                    
+                    $this.closest('pre.jf-collapsible').children('pre').slideToggle();
                 }
+                $this.siblings('.jf-ellipses').fadeToggle();                    
+                $this.children('.jf-key').toggleClass('jf-collapse');
             });
         }
         
