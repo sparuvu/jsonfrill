@@ -1,7 +1,7 @@
 /*!
  * jQuery jsonFrill plugin v0.1
  * https://github.com/sparuvu/jsonFrill
- * 
+ *
  * Released under the MIT license
  * https://raw.github.com/sparuvu/jsonFrill/master/LICENSE
  *
@@ -32,7 +32,8 @@
             $pre = $(document.createElement('pre')).css('margin', 0),
             $ellipses = $(document.createElement('span')).addClass('jf-ellipses jf-hide').text('...'),
             $span = $(document.createElement('span')),
-            TAB_SIZE = jf.settings.tabSize == 2 ? " ": (function(){var tab = "";for(i = 1;i < jf.settings.tabSize; i++){tab += " ";} return tab;}());
+            TAB_SIZE = (function(){var tab = "";for(i = 1;i < jf.settings.tabSize; i++){tab += " ";} return tab;}()),
+            SPACES = addSpaces();
 
         function processPrimitive(key, value, type) {
             var valueHtml = $span.clone().addClass('jf-value  jf-' + type).text(value)[0].outerHTML;
@@ -42,29 +43,30 @@
         function addSpaces() {
             var emptyString = "";
             for(var i = 0; i< _indentationLevel; i++) {
-                emptyString += "|" + TAB_SIZE;
+                emptyString += "| " + TAB_SIZE;
             }
             return $span.clone().addClass('jf-indents').text(emptyString)[0].outerHTML;
         }
 
         function getKey(key, jfClass) {
-            jfClass = jfClass || "";
             if(jfClass) {
                 var key = $span.clone().addClass('jf-key jf-collapse').html(key)[0].outerHTML;
-                return $span.clone().addClass(jfClass).html(addSpaces() + key)[0].outerHTML;
+                return $span.clone().addClass(jfClass).html(SPACES + key)[0].outerHTML;
             }
-            return $span.clone().addClass('jf-key ' + jfClass).html(addSpaces() + key)[0].outerHTML;
+            return $span.clone().addClass('jf-key').html(SPACES + key)[0].outerHTML;
         }
 
-        function processNonPrimitive(type, key, value) {
+        function processNonPrimitive(openBrace, closeBrace, key, value) {
             var temp = "";
             _indentationLevel++;
+            SPACES = addSpaces();
             var str = process(value, true);
             _indentationLevel--;
+            SPACES = addSpaces();
             if(str) {
-                temp = getKey(key, "jf-collapsible-title") + seperator + braces[type].open + $ellipses.clone()[0].outerHTML + lineBreak + str + addSpaces() + braces[type].close;
+                temp = getKey(key, "jf-collapsible-title") + seperator + openBrace + $ellipses.clone()[0].outerHTML + lineBreak + str + SPACES + closeBrace;
             } else {
-                temp = getKey(key) + seperator + braces[type].open + " " + braces[type].close;
+                temp = getKey(key) + seperator + openBrace + " " + closeBrace;
             }
             return $pre.clone().addClass('jf-collapsible').html(temp)[0].outerHTML;
         }
@@ -77,7 +79,7 @@
             for (var key in obj) {
                 var type = $.type(obj[key]);
                 if(type == "object" || type == "array") {
-                    str += processNonPrimitive(type, key, obj[key]);
+                    str += processNonPrimitive(braces[type].open, braces[type].close, key, obj[key]);
                 } else {
                     str += processPrimitive(key, obj[key], type);
                     flag = false;
@@ -89,10 +91,10 @@
         function toggleObjects($obj, collapse) {
             $obj.each(function() {
                 var $this = $(this);
-                if(collapse) {
-                    $this.closest('.jf-collapsible').children('pre').toggle();
+                 if(collapse) {
+                    $this.closest('pre.jf-collapsible').children('pre').toggle();
                 } else {
-                    $this.closest('.jf-collapsible').children('pre').slideToggle('fast');
+                    $this.closest('pre.jf-collapsible').children('pre').slideToggle('fast');
                 }
                 $this.siblings('.jf-ellipses').fadeToggle('fast');
                 $this.children('.jf-key').toggleClass('jf-collapse');
@@ -106,11 +108,11 @@
             });
 
             $('div.jf-prop').hover(function(e) {
-                  $(this).closest('.jf-collapsible').addClass('jf-highlight');
+                  $(this).closest('pre.jf-collapsible').addClass('jf-highlight');
                   e.preventDefault();
                 },
                 function(e) {
-                  $(this).closest('.jf-collapsible').removeClass('jf-highlight');
+                  $(this).closest('pre.jf-collapsible').removeClass('jf-highlight');
                   e.preventDefault();
             });
         }
@@ -130,15 +132,15 @@
                 }
             } catch(ex) {
                 if(console && console.log) {
-                    console.log("Invalid Json " + ex);
+                    console.log("Invalid Json "+ex);
                 }
                 return;
             }
-            var str = process(json, false),
-                type = $.type(json);
+            var str = process(json, false), type = $.type(json);
             if(str) {
                 _indentationLevel--;
-                str = $(braces[type].open).addClass('jf-parent-brace')[0].outerHTML + $ellipses.clone()[0].outerHTML + str + addSpaces() + braces[type].close;
+                SPACES = addSpaces();
+                str = $(braces[type].open).addClass('jf-parent-brace')[0].outerHTML + $ellipses.clone()[0].outerHTML + str + SPACES + braces[type].close;
                 $(this).html($pre.clone().addClass('jf-collapsible').attr('id', 'jf-formattedJSON').html(str));
             } else {
                 $(this).html($pre.clone().html(braces[type].open + braces[type].close));
