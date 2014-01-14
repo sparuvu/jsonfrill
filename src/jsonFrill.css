@@ -9,9 +9,14 @@
  */
 
 
-#jf-formattedJSON * {
+#jf-formattedJSON {
 	cursor: default;
 	font-family: monospace;
+}
+
+#jf-formattedJSON .jf-brace {
+  font-weight: normal;
+  font-family: "helvetica neue", sans-serif;
 }
 
 .jf-string {
@@ -58,22 +63,18 @@
 	color: #AC382D;
 }
 
-#jf-formattedJSON .jf-highlight {
+.jf-highlight {
   background-color:#AECAE0;
   border-radius: 5px;
 }
 
-#jf-formattedJSON .jf-brace {
-  font-weight: normal;
-  font-family: "helvetica neue", sans-serif;
-}
 
-div.jf-prop span {
+.jf-prop span {
 	display: inline-block;
 	vertical-align: top;
 }
 
-span.jf-value {
+.jf-value {
   word-wrap: break-word;
 	max-width: 550px;
 }
@@ -87,7 +88,13 @@ span.jf-value {
 }
 
 .jf-collapsible-title .jf-collapse:before, .jf-collapsible-title .jf-key:before {
-   color: #8A008B;
-   font-weight: bold;
-   padding-right: 5px;
+    color: #8A008B;
+    font-weight: bold;
+    border: 1px solid #444943;
+    margin-right: 5px;
+    border-radius: 2px;
+    font-size: 8px;
+    padding: 1px;
+    display: inline-block;
+    line-height: 5px;
 }
