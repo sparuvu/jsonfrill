@@ -12,7 +12,7 @@
 		<div id="target">{"sundeep": 123}</div>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				$('#target').jsonFrill(window.JSON.stringify(demoJSON), {});
+				$('#target').jsonFrill({}, window.JSON.stringify(demoJSON));
 			});
 		</script>
 	</body>
