@@ -1,18 +1,92 @@
-<!DOCTYPE >
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Demo page</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="src/jsonFrill.js"></script>
-		<script src="demo/demoJSON.json"></script>
-		<link href="src/jsonFrill.css" rel="stylesheet" media="all"/>
-	</head>
-	<body>
-		<div id="target">{"sundeep": 123}</div>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$('#target').jsonFrill({}, window.JSON.stringify(demoJSON));
-			});
-		</script>
-	</body>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Jsonfrill.js : A jQuery plugin to render the formatted and collapsible the json " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jsonfrill.js</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/sparuvu/jsonFrill">View on GitHub</a>
+
+          <h1 id="project_title">Jsonfrill.js</h1>
+          <h2 id="project_tagline">A jQuery plugin to render the formatted and collapsible the json </h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/sparuvu/jsonFrill/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/sparuvu/jsonFrill/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="jsonfrill" class="anchor" href="#jsonfrill"><span class="octicon octicon-link"></span></a>jsonFrill</h1>
+
+<h1></h1>
+
+<p>jsonFrill v0.1</p>
+
+<p>A jQuery plugin to render the formatted and collapsible</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<ul>
+<li>$(target).jsonFrill();
+
+<ul>
+<li>Replaces the contents of <code>target</code> with formatted json</li>
+</ul>
+</li>
+<li>$(target).jsonFrill(sourceJson);
+
+<ul>
+<li>Formats the <code>sourceJson</code> and replaces the content of the <code>target</code>
+</li>
+</ul>
+</li>
+<li>$(target).jsonFrill(sourceJson, options);
+
+<ul>
+<li>Formats the <code>sourceJson</code> and replaces the content of the <code>target</code>
+</li>
+<li>Consumes the external options.</li>
+<li>######Options Defaults
+
+<ul>
+<li>Collapse  : false</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>Depends on jQuery &gt;= 1.10.2</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jsonfrill.js maintained by <a href="https://github.com/sparuvu">sparuvu</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
 </html>
