@@ -12,11 +12,16 @@
 #jf-formattedJSON {
   cursor: default;
   font-family: monospace;
+  white-space: pre;
 }
 
-#jf-formattedJSON .jf-brace {
+#jf-formattedJSON .jf-open-brace, #jf-formattedJSON .jf-close-brace {
   font-weight: normal;
   font-family: "helvetica neue", sans-serif;
+}
+
+.jf-close-brace {
+  padding-left: 2px;
 }
 
 .jf-string {
@@ -64,7 +69,7 @@
 }
 
 .jf-highlight {
-  background-color:#AECAE0;
+  background-color:#EBF0FB;
   border-radius: 5px;
 }
 
