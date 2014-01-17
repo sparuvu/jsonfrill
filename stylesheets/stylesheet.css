@@ -53,20 +53,21 @@ body {
   color:#373737;
   background: #212121;
   font-size: 16px;
-  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Calibri, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 10px 0;
   font-weight: 700;
   color:#222222;
-  font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
   letter-spacing: -1px;
 }
 
 h1 {
+  font-family: 'Impact', Calibri, Helvetica, Arial, sans-serif;
   font-size: 36px;
   font-weight: 700;
 }
@@ -171,7 +172,7 @@ pre, code {
 }
 
 pre {
-  width: 100%;
+  width: 97%;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,.1);
   overflow: auto;
@@ -254,6 +255,56 @@ form {
   padding: 20px;
 }
 
+#target {
+  margin-top: 15px;
+}
+
+#shadow {
+  display: none;
+}
+
+#format {
+  border: 1px solid #007788;
+  padding: 5px 10px;
+  border-radius: 4px; 
+  font-size: 13px;
+}
+
+#format:hover {
+  text-decoration: none;
+  text-shadow: 2px 2px #EFEFEF;
+  font-size: 15px;
+  border: 2px solid #007788;
+}
+
+.demo {
+  word-wrap: break-word;
+  margin-left: -100px;
+  width: 820px;
+}
+
+#sidebar {
+  position: fixed;
+  left: -3px;
+  top: 300px;  
+  border: 1px solid;
+  border-radius: 5px;
+  border-left: none;
+  
+}
+
+#sidebar a {
+  display: block;
+  padding: 5px 10px;
+  color: black;
+  border-top: 1px solid;
+  border-bottom: 1px dotted;
+}
+
+#sidebar a:hover {
+  background-color: #0090FF;
+  text-decoration: none;
+}
 /*******************************************************************************
 Full-Width Styles
 *******************************************************************************/
@@ -326,30 +377,27 @@ Full-Width Styles
 .zip_download_link {
   display: block;
   float: right;
-  width: 90px;
-  height:70px;
+  width: 100px;
+  height:100px;
   text-indent: -5000px;
   overflow: hidden;
-  background: url(../images/sprite_download.png) no-repeat bottom left;
+  background: url(../images/zip.png) no-repeat bottom left;
+  margin: -20px;
 }
 
 .tar_download_link {
   display: block;
   float: right;
-  width: 90px;
-  height:70px;
+  width: 100px;
+  height:100px;
   text-indent: -5000px;
   overflow: hidden;
-  background: url(../images/sprite_download.png) no-repeat bottom right;
-  margin-left: 10px;
+  background: url(../images/tar-gz.png) no-repeat bottom right;
+  margin: -20px 30px 0 -20px
 }
 
-.zip_download_link:hover {
-  background: url(../images/sprite_download.png) no-repeat top left;
-}
-
-.tar_download_link:hover {
-  background: url(../images/sprite_download.png) no-repeat top right;
+.zip_download_link:hover, .tar_download_link:hover {
+  margin-top: -10px;
 }
 
 #main_content_wrap {
@@ -366,6 +414,12 @@ Full-Width Styles
   background: #212121;
 }
 
+.content-section {
+  border: 1px solid #CECECE;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
 
 
 /*******************************************************************************

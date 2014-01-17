@@ -7,6 +7,8 @@
     <meta name="description" content="Jsonfrill.js : A jQuery plugin to render the formatted and collapsible the json " />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/rainbow.css">   
+    <link href="src/jsonFrill.css" rel="stylesheet" media="all"/>
 
     <title>Jsonfrill.js</title>
   </head>
@@ -15,78 +17,85 @@
 
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/sparuvu/jsonFrill">View on GitHub</a>
+      <header class="inner">
+        <a id="forkme_banner" href="https://github.com/sparuvu/jsonFrill">View on GitHub</a>
 
-          <h1 id="project_title">Jsonfrill.js</h1>
-          <h2 id="project_tagline">A jQuery plugin to render the formatted and collapsible the json </h2>
+        <h1 id="project_title">Jsonfrill.js</h1>
+        <h2 id="project_tagline">A jQuery plugin to render the formatted and collapsible the json </h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/sparuvu/jsonFrill/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/sparuvu/jsonFrill/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+        <section id="downloads">
+          <a class="zip_download_link" href="https://github.com/sparuvu/jsonFrill/zipball/master">Download this project as a .zip file</a>
+          <a class="tar_download_link" href="https://github.com/sparuvu/jsonFrill/tarball/master">Download this project as a tar.gz file</a>
+        </section>
+      </header>
     </div>
-
+    <div id="sidebar">
+      <a href="#usage">Usage</a>
+      <a href="#demo">Demo</a>
+      <a href="#dependencies">Dependencies</a>
+    </div>
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>
-<a name="jsonfrill" class="anchor" href="#jsonfrill"><span class="octicon octicon-link"></span></a>jsonFrill</h1>
-
-<h1></h1>
-
-<p>jsonFrill v0.1</p>
-
-<p>A jQuery plugin to render the formatted and collapsible</p>
-
-<h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
-
-<ul>
-<li>$(target).jsonFrill();
-
-<ul>
-<li>Replaces the contents of <code>target</code> with formatted json</li>
-</ul>
-</li>
-<li>$(target).jsonFrill(sourceJson);
-
-<ul>
-<li>Formats the <code>sourceJson</code> and replaces the content of the <code>target</code>
-</li>
-</ul>
-</li>
-<li>$(target).jsonFrill(sourceJson, options);
-
-<ul>
-<li>Formats the <code>sourceJson</code> and replaces the content of the <code>target</code>
-</li>
-<li>Consumes the external options.</li>
-<li>######Options Defaults
-
-<ul>
-<li>Collapse  : false</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul><h2>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
-
-<p>Depends on jQuery &gt;= 1.10.2</p>
+        <section class="content-section">          
+          <a name="usage"></a>
+          <h2>Usage</h2>
+          <span>Replaces the contents of target with formatted json</span>
+          <pre><code data-language="javascript">$(target).jsonFrill();</code></pre>
+          <span>Formats the sourceJson and replaces the content of the target</span>
+          <pre><code data-language="javascript">$(target).jsonFrill(sourceJson);</code></pre>
+          <span> Formats the sourceJson and replaces the content of the target</span>
+          <pre><code data-language="javascript">$(target).jsonFrill(sourceJson, options);</code></pre>
+          <span>Consumes the external options.</span>
+           <ul>       
+              <li>Collapse  : false</li>
+              <li>tab  : 2</li>
+           </ul>
+         </section> 
+         <section class="content-section demo"> 
+            <a name="demo"></a>    
+            <h2>Demo</h2>    
+            <a id="format" href="#">prettify</a>
+            <div id="target">{"coordinates":null,"created_at":"Thu Oct 21 16:02:46 +0000 2010","favorited":false,"truncated":false,"id_str":"28039652140","entities":{"urls":[{"expanded_url":null,"url":"http://gnip.com/success_stories","indices":[69,100]}],"hashtags":[],"user_mentions":[{"name":"Gnip, Inc.","id_str":"16958875","id":16958875,"indices":[25,30],"screen_name":"gnip"}]},"in_reply_to_user_id_str":null,"text":"what we've been","contributors":null,"id":28039652140,"retweet_count":null,"in_reply_to_status_id_str":null,"geo":null,"retweeted":false,"in_reply_to_user_id":null,"user":{"profile_sidebar_border_color":"C0DEED","name":"Gnip, Inc.","profile_sidebar_fill_color":"DDEEF6","profile_background_tile":false,"profile_image_url":"http://a3.twimg.com/icon_normal.png","location":"Boulder, CO","created_at":"Fri Oct 24 23:22:09 +0000 2008","id_str":"16958875","follow_request_sent":false,"profile_link_color":"0084B4","favourites_count":1,"url":"http://blog.gnip.com","contributors_enabled":false,"utc_offset":-25200,"id":16958875,"profile_use_background_image":true,"listed_count":23,"protected":false,"lang":"en","profile_text_color":"333333","followers_count":260,"time_zone":"Mountain Time (US & Canada)","verified":false,"geo_enabled":true,"profile_background_color":"C0DEED","notifications":false,"description":"Gnip data for your business.","friends_count":71,"image_url":"http://s.twimg.com/a/1287010001/images/bg.png","statuses_count":302,"screen_name":"gnip","following":false,"show_all_inline_media":false},"in_reply_to_screen_name":null,"source":"web","place":null,"in_reply_to_status_id":null}</div>
+            <div id="shadow">{"coordinates":null,"created_at":"Thu Oct 21 16:02:46 +0000 2010","favorited":false,"truncated":false,"id_str":"28039652140","entities":{"urls":[{"expanded_url":null,"url":"http://gnip.com/success_stories","indices":[69,100]}],"hashtags":[],"user_mentions":[{"name":"Gnip, Inc.","id_str":"16958875","id":16958875,"indices":[25,30],"screen_name":"gnip"}]},"in_reply_to_user_id_str":null,"text":"what we've been","contributors":null,"id":28039652140,"retweet_count":null,"in_reply_to_status_id_str":null,"geo":null,"retweeted":false,"in_reply_to_user_id":null,"user":{"profile_sidebar_border_color":"C0DEED","name":"Gnip, Inc.","profile_sidebar_fill_color":"DDEEF6","profile_background_tile":false,"profile_image_url":"http://a3.twimg.com/icon_normal.png","location":"Boulder, CO","created_at":"Fri Oct 24 23:22:09 +0000 2008","id_str":"16958875","follow_request_sent":false,"profile_link_color":"0084B4","favourites_count":1,"url":"http://blog.gnip.com","contributors_enabled":false,"utc_offset":-25200,"id":16958875,"profile_use_background_image":true,"listed_count":23,"protected":false,"lang":"en","profile_text_color":"333333","followers_count":260,"time_zone":"Mountain Time (US & Canada)","verified":false,"geo_enabled":true,"profile_background_color":"C0DEED","notifications":false,"description":"Gnip data for your business.","friends_count":71,"image_url":"http://s.twimg.com/a/1287010001/images/bg.png","statuses_count":302,"screen_name":"gnip","following":false,"show_all_inline_media":false},"in_reply_to_screen_name":null,"source":"web","place":null,"in_reply_to_status_id":null}</div>
+        </section>
+         <section class="content-section"> 
+            <a name="dependencies"></a>    
+            <h2>Dependencies</h2>    
+            <p>Depends on jQuery >= 1.10.2</p>
+        </section>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Jsonfrill.js maintained by <a href="https://github.com/sparuvu">sparuvu</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+        <p class="copyright">
+          Jsonfrill.js maintained by <a href="https://github.com/sparuvu">sparuvu</a>
+        </p>
+        <p>
+          Published with <a href="http://pages.github.com">GitHub Pages</a>
+        </p>
       </footer>
     </div>
-
-    
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="javascripts/rainbow-custom.min.js"></script>
+    <script src="src/jsonFrill.js"></script>
+    <script type="text/javascript">
+      var isFormatted = false;
+      $(document).ready(function(){
+        $('body').on('click', '#format', function(e){
+          e.preventDefault();
+          if(!isFormatted) {
+            $('#format').text('uglify');
+            $('#target').jsonFrill({}, $('#shadow').text());
+          } else {
+            $('#format').text('prettify');
+            $('#target').text($('#shadow').text());  
+          }
+          isFormatted = !isFormatted;            
+        });        
+      });
+    </script>
   </body>
 </html>
