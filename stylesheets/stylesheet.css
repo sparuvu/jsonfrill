@@ -257,8 +257,9 @@ form {
 
 #target {
   margin-top: 15px;
+  font-size: 14px;
 }
-
+ 
 #shadow {
   display: none;
 }
@@ -305,6 +306,7 @@ form {
   background-color: #0090FF;
   text-decoration: none;
 }
+
 /*******************************************************************************
 Full-Width Styles
 *******************************************************************************/
