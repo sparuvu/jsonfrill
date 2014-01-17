@@ -1,6 +1,22 @@
-jsonFrill v0.1
+<<<<<<< HEAD
+||||||| parent of 8919736... Added the demo page.
+#jsonFrill
+=========
 
+=======
+#jsonFrill
+
+>>>>>>> 8919736... Added the demo page.
+jsonFrill v0.1
+A jQuery plugin to render the formatted, collapsible and color coded json.
+
+<<<<<<< HEAD
 A jQuery plugin to render the formatted and collapsible
+||||||| parent of 8919736... Added the demo page.
+A jQuery plugin to render the formatted and collapsible 
+=======
+[Demo](http://sparuvu.github.io/jsonFrill)
+>>>>>>> 8919736... Added the demo page.
 
 ##Usage
 * $(target).jsonFrill();
