@@ -103,3 +103,32 @@
     display: inline-block;
     line-height: 5px;
 }
+
+#jf-toolbar{
+  margin-bottom: 5px;
+  background-color: #C3CD88;
+  display: inline-block;
+  border: 1px solid #396810;
+  border-radius: 4px;
+}
+
+
+.jf-active {
+  border: 1px solid #000;
+  font-weight: bold;
+}
+
+#jf-expand-all, #jf-collapse-all{
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px;
+  font-size: 10px;  
+}
+
+#jf-collapse-all {
+  border-right: 1px solid #ECECEC;  
+}
+
+#jf-expand-all {
+  padding-left: 10px;
+}
