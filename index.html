@@ -46,10 +46,11 @@
           <pre><code data-language="javascript">$(target).jsonFrill(sourceJson);</code></pre>
           <span> Formats the sourceJson and replaces the content of the target</span>
           <pre><code data-language="javascript">$(target).jsonFrill(sourceJson, options);</code></pre>
-          <span>Consumes the external options.</span>
+          <span>Consumes the external options. The dafaults are </span>
            <ul>       
               <li>Collapse  : false</li>
               <li>tab  : 2</li>
+              <li>toolbar  : false</li>
            </ul>
          </section> 
          <section class="content-section demo"> 
@@ -80,7 +81,7 @@
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="javascripts/rainbow-custom.min.js"></script>
-    <script src="src/jsonFrill.js"></script>
+    <script src="src/jsonfrill.js"></script>
     <script type="text/javascript">
       var isFormatted = false;
       $(document).ready(function(){
@@ -88,7 +89,7 @@
           e.preventDefault();
           if(!isFormatted) {
             $('#format').text('uglify');
-            $('#target').jsonFrill({}, $('#shadow').text());
+            $('#target').jsonFrill({toolbar: true}, $('#shadow').text());
           } else {
             $('#format').text('prettify');
             $('#target').text($('#shadow').text());  
