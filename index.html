@@ -7,7 +7,7 @@
     <meta name="description" content="Jsonfrill.js : A jQuery plugin to render the formatted and collapsible the json " />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/rainbow.css">   
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/rainbow.css">
     <link href="src/jsonFrill.css" rel="stylesheet" media="all"/>
 
     <title>Jsonfrill.js</title>
@@ -37,7 +37,7 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <section class="content-section">          
+        <section class="content-section">
           <a name="usage"></a>
           <h2>Usage</h2>
           <span>Replaces the contents of target with formatted json</span>
@@ -47,22 +47,22 @@
           <span> Formats the sourceJson and replaces the content of the target</span>
           <pre><code data-language="javascript">$(target).jsonFrill(sourceJson, options);</code></pre>
           <span>Consumes the external options. The dafaults are </span>
-           <ul>       
+           <ul>
               <li>Collapse  : false</li>
               <li>tab  : 2</li>
               <li>toolbar  : false</li>
            </ul>
-         </section> 
-         <section class="content-section demo"> 
-            <a name="demo"></a>    
-            <h2>Demo</h2>    
+         </section>
+         <section class="content-section demo">
+            <a name="demo"></a>
+            <h2>Demo</h2>
             <a id="format" href="#">prettify</a>
             <div id="target">{"coordinates":null,"created_at":"Thu Oct 21 16:02:46 +0000 2010","favorited":false,"truncated":false,"id_str":"28039652140","entities":{"urls":[{"expanded_url":null,"url":"http://gnip.com/success_stories","indices":[69,100]}],"hashtags":[],"user_mentions":[{"name":"Gnip, Inc.","id_str":"16958875","id":16958875,"indices":[25,30],"screen_name":"gnip"}]},"in_reply_to_user_id_str":null,"text":"what we've been","contributors":null,"id":28039652140,"retweet_count":null,"in_reply_to_status_id_str":null,"geo":null,"retweeted":false,"in_reply_to_user_id":null,"user":{"profile_sidebar_border_color":"C0DEED","name":"Gnip, Inc.","profile_sidebar_fill_color":"DDEEF6","profile_background_tile":false,"profile_image_url":"http://a3.twimg.com/icon_normal.png","location":"Boulder, CO","created_at":"Fri Oct 24 23:22:09 +0000 2008","id_str":"16958875","follow_request_sent":false,"profile_link_color":"0084B4","favourites_count":1,"url":"http://blog.gnip.com","contributors_enabled":false,"utc_offset":-25200,"id":16958875,"profile_use_background_image":true,"listed_count":23,"protected":false,"lang":"en","profile_text_color":"333333","followers_count":260,"time_zone":"Mountain Time (US & Canada)","verified":false,"geo_enabled":true,"profile_background_color":"C0DEED","notifications":false,"description":"Gnip data for your business.","friends_count":71,"image_url":"http://s.twimg.com/a/1287010001/images/bg.png","statuses_count":302,"screen_name":"gnip","following":false,"show_all_inline_media":false},"in_reply_to_screen_name":null,"source":"web","place":null,"in_reply_to_status_id":null}</div>
             <div id="shadow">{"coordinates":null,"created_at":"Thu Oct 21 16:02:46 +0000 2010","favorited":false,"truncated":false,"id_str":"28039652140","entities":{"urls":[{"expanded_url":null,"url":"http://gnip.com/success_stories","indices":[69,100]}],"hashtags":[],"user_mentions":[{"name":"Gnip, Inc.","id_str":"16958875","id":16958875,"indices":[25,30],"screen_name":"gnip"}]},"in_reply_to_user_id_str":null,"text":"what we've been","contributors":null,"id":28039652140,"retweet_count":null,"in_reply_to_status_id_str":null,"geo":null,"retweeted":false,"in_reply_to_user_id":null,"user":{"profile_sidebar_border_color":"C0DEED","name":"Gnip, Inc.","profile_sidebar_fill_color":"DDEEF6","profile_background_tile":false,"profile_image_url":"http://a3.twimg.com/icon_normal.png","location":"Boulder, CO","created_at":"Fri Oct 24 23:22:09 +0000 2008","id_str":"16958875","follow_request_sent":false,"profile_link_color":"0084B4","favourites_count":1,"url":"http://blog.gnip.com","contributors_enabled":false,"utc_offset":-25200,"id":16958875,"profile_use_background_image":true,"listed_count":23,"protected":false,"lang":"en","profile_text_color":"333333","followers_count":260,"time_zone":"Mountain Time (US & Canada)","verified":false,"geo_enabled":true,"profile_background_color":"C0DEED","notifications":false,"description":"Gnip data for your business.","friends_count":71,"image_url":"http://s.twimg.com/a/1287010001/images/bg.png","statuses_count":302,"screen_name":"gnip","following":false,"show_all_inline_media":false},"in_reply_to_screen_name":null,"source":"web","place":null,"in_reply_to_status_id":null}</div>
         </section>
-         <section class="content-section"> 
-            <a name="dependencies"></a>    
-            <h2>Dependencies</h2>    
+         <section class="content-section">
+            <a name="dependencies"></a>
+            <h2>Dependencies</h2>
             <p>Depends on jQuery >= 1.10.2</p>
         </section>
       </section>
@@ -89,13 +89,13 @@
           e.preventDefault();
           if(!isFormatted) {
             $('#format').text('uglify');
-            $('#target').jsonFrill({toolbar: true}, $('#shadow').text());
+            $('#target').jsonFrill({toolbar: true, toolbar: true}, $('#shadow').text());
           } else {
             $('#format').text('prettify');
-            $('#target').text($('#shadow').text());  
+            $('#target').text($('#shadow').text());
           }
-          isFormatted = !isFormatted;            
-        });        
+          isFormatted = !isFormatted;
+        });
       });
     </script>
   </body>
