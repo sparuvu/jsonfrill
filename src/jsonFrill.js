@@ -50,13 +50,13 @@
             if(jfClass) {
                 return '<span class="'+jfClass+'">'+SPACES + '<span class="jf-key jf-collapse">' + key + '</span></span>';
             }
-            return '<span class="jf-key">' + SPACES + key + '</span>';            
+            return '<span class="jf-key">' + SPACES + key + '</span>';
         }
 
         function processNonPrimitive(openBrace, closeBrace, key, value) {
             var temp = "";
             SPACES = addSpaces(++_indentationLevel);
-            var str = process(value, true);
+            var str = process(value);
             SPACES = addSpaces(--_indentationLevel);
             if(str) {
                 temp = getKey(key, "jf-collapsible-title") + seperator + openBrace + $ellipses + lineBreak + str + SPACES + closeBrace;
@@ -66,7 +66,7 @@
             return '<div class="jf-collapsible">'+temp+'</div>';
         }
 
-        function process(obj, flag) {
+        function process(obj) {
             var str = "";
             if($.isEmptyObject(obj)) {
                 return false;
@@ -77,26 +77,44 @@
                     str += processNonPrimitive(braces[type].open, braces[type].close, key, obj[key]);
                 } else {
                     str += processPrimitive(key, obj[key], type);
-                    flag = false;
                 }
             }
             return str;
         }
 
-        function toggleObjects($obj, options) {
+        function jfShow($obj) {
             $obj.each(function() {
                 var $this = $(this),
                     $collapsible = $this.closest('div.jf-collapsible').children('div');
-                options.slide ? $collapsible.slideToggle(100) : $collapsible.toggle();
-                $this.siblings('.jf-ellipses').fadeToggle('fast');
-                $this.children('.jf-key').toggleClass('jf-collapse');
+                $collapsible.slideDown(50, function(){
+                    $collapsible.removeClass('jf-collapsed');
+                });
+                $this.siblings('.jf-ellipses').fadeOut('fast');
+                $this.children('.jf-key').addClass('jf-collapse');
             });
         }
-        
+
+        function jfHide($obj) {
+            $obj.each(function() {
+                var $this = $(this),
+                    $collapsible = $this.closest('div.jf-collapsible').children('div');
+                $collapsible.slideUp(50, function(){
+                    $collapsible.addClass('jf-collapsed');
+                });
+                $this.siblings('.jf-ellipses').fadeIn('fast');
+                $this.children('.jf-key').removeClass('jf-collapse');
+            });
+        }
+
         function bindings() {
-            $("#jf-formattedJSON").on('click', '.jf-collapsible-title, .jf-parent-brace', function(e){
+            var $jfCollapsibleItems = $('#jf-formattedJSON .jf-collapsible-title, #jf-formattedJSON .jf-parent-brace');
+            $jfCollapsibleItems.on('click', function(e){
                 e.preventDefault();
-                toggleObjects($(this));
+                if($(this).closest('.jf-collapsible').children('div').hasClass('jf-collapsed')) {
+                    jfShow($(this));
+                } else {
+                    jfHide($(this));
+                }
             });
 
             $('div.jf-prop').hover(function(e) {
@@ -107,20 +125,19 @@
                   $(this).closest('.jf-collapsible').removeClass('jf-highlight');
                   e.preventDefault();
             });
-            
-            $('#jf-toolbar').on('click', "label:not('.jf-active')", function(){
-                toggleObjects($('#jf-formattedJSON .jf-collapsible-title'), {slide: false} );
-                $('#jf-toolbar label').toggleClass('jf-active');
+
+            $('#jf-toolbar').on('click', "label", function(){
+                $(this).text() === 'Expand All' ? jfShow($jfCollapsibleItems) : jfHide($jfCollapsibleItems);
             });
         }
-        
+
         function toolBar(collapseAll) {
             return "<div id='jf-toolbar'>" +
                         "<label id='jf-collapse-all' class = '"+ (collapseAll ? "jf-active" : "") +"'>Collapse All</label>" +
                         "<label id='jf-expand-all' class = '"+ (collapseAll ? "" : "jf-active") +"'>Expand All</label>" +
                     "</div>";
         }
-        
+
         return this.each(function() {
             try {
                 if(jsonSource) {
@@ -140,22 +157,21 @@
                 }
                 $(this).html(jsonSource);
             }
-            var str = process(json, false), type = $.type(json);
+            var str = process(json), type = $.type(json);
             if(str) {
                 SPACES = addSpaces(--_indentationLevel);
-                var formattedJSON = '<div id="jf-formattedJSON" class="jf-collapsible">'+ 
-                                        $(braces[type].open).addClass('jf-parent-brace')[0].outerHTML + $ellipses + 
+                var formattedJSON = '<div id="jf-formattedJSON" class="jf-collapsible">'+
+                                        $(braces[type].open).addClass('jf-parent-brace')[0].outerHTML + $ellipses +
                                         str + SPACES + braces[type].close; +
                                     '</div>',
                     toolbar = jf.settings.toolbar ? toolBar(jf.settings.collapse) : "";
-                
                 $(this).html(toolbar + formattedJSON);
             } else {
                 $(this).html(braces[type].open + braces[type].close);
             }
             bindings();
             if(jf.settings.collapse) {
-                toggleObjects($('#jf-formattedJSON .jf-collapsible-title'), {slide: true});
+                jfHide($('#jf-formattedJSON .jf-collapsible-title, #jf-formattedJSON .jf-parent-brace'));
             }
         });
     };
