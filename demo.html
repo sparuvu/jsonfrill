@@ -3,16 +3,17 @@
   <head>
     <title>Demo page</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="src/jsonFrill.js"></script>   
+    <script src="src/jsonFrill.js"></script>
     <link href="src/jsonFrill.css" rel="stylesheet" media="all"/>
   </head>
   <body>
     <div id="target">
-      {"glossary":{"title":"example glossary","GlossDiv":{"title":"S","GlossList":{"GlossEntry":{"ID":"SGML","SortAs":"SGML","GlossTerm":"Standard Generalized Markup Language","Acronym":"SGML","Abbrev":"ISO 8879:1986","GlossDef":{"para":"A meta-markup language, used to create markup languages such as DocBook.","GlossSeeAlso":["GML","XML"]},"GlossSee":"markup"}}}}}
+      {"glossary":{"title":"dsfkjnds</span>glossary",
+      "GlossDiv":{"title":"S","GlossList":{"GlossEntry":{"ID":"SGML","SortAs":"SGML","GlossTerm":"Standard Generalized Markup Language","Acronym":"SGML","Abbrev":"ISO 8879:1986","GlossDef":{"para":"A meta-markup language, used to create markup languages such as DocBook.","GlossSeeAlso":["GML","XML"]},"GlossSee":"dsfkjnds</span>", "abc":[], "def":{}}}}}}
     </div>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('#target').jsonFrill({toolbar: true}, $('#target').text());
+        $('#target').jsonFrill({collapse: true, toolbar: true}, $('#target').text());
       });
     </script>
   </body>
