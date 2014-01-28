@@ -82,63 +82,54 @@
             return str;
         }
 
-        function jfShow($obj) {
-            $obj.each(function() {
-                var $this = $(this),
-                    $collapsible = $this.closest('div.jf-collapsible').children('div');
-                $collapsible.slideDown(50, function(){
-                    $collapsible.removeClass('jf-collapsed');
-                });
-                $this.siblings('.jf-ellipses').fadeOut('fast');
-                $this.children('.jf-key').addClass('jf-collapse');
-            });
+        function jfShow($obj, $key) {
+            $obj.slideDown(50).removeClass('jf-collapsed');
+            $obj.siblings('.jf-ellipses').fadeOut('fast');
+            $key.addClass('jf-collapse');
         }
 
-        function jfHide($obj) {
-            $obj.each(function() {
-                var $this = $(this),
-                    $collapsible = $this.closest('div.jf-collapsible').children('div');
-                $collapsible.slideUp(50, function(){
-                    $collapsible.addClass('jf-collapsed');
-                });
-                $this.siblings('.jf-ellipses').fadeIn('fast');
-                $this.children('.jf-key').removeClass('jf-collapse');
-            });
+        function jfHide($obj, $key) {
+            $obj.slideUp(50).addClass('jf-collapsed');
+            $obj.siblings('.jf-ellipses').fadeIn('fast');
+            $key.removeClass('jf-collapse');
         }
 
-        function bindings() {
-            var $jfCollapsibleItems = $('#jf-formattedJSON .jf-collapsible-title, #jf-formattedJSON .jf-parent-brace');
-            $jfCollapsibleItems.on('click', function(e){
+        function bindings(elements) {
+            $('div#jf-formattedJSON').on('click', 'div.jf-collapsible-title, div.jf-parent-brace', function(e){
                 e.preventDefault();
-                if($(this).closest('.jf-collapsible').children('div').hasClass('jf-collapsed')) {
-                    jfShow($(this));
+                var $divs = $(this).siblings('div'),
+                    $key = $(this).children('.jf-key');
+                if($divs.hasClass('jf-collapsed')) {
+                    jfShow($divs, $key);
                 } else {
-                    jfHide($(this));
+                    jfHide($divs, $key);
                 }
             });
 
             $('div.jf-prop').hover(function(e) {
-                  $(this).closest('.jf-collapsible').addClass('jf-highlight');
+                  $(this).closest('div.jf-collapsible').addClass('jf-highlight');
                   e.preventDefault();
                 },
                 function(e) {
-                  $(this).closest('.jf-collapsible').removeClass('jf-highlight');
+                  $(this).closest('div.jf-collapsible').removeClass('jf-highlight');
                   e.preventDefault();
             });
 
-            $('#jf-toolbar').on('click', "label", function(){
-                $(this).text() === 'Expand All' ? jfShow($jfCollapsibleItems) : jfHide($jfCollapsibleItems);
+            $('div#jf-toolbar').on('click', "label", function(){
+                $(this).text() === 'Expand All' ? jfShow($('div.jf-collapsed'), $keys)
+                    : jfHide(elements.collapsibleDivs, elements.collapsibleKeys);
             });
         }
 
         function toolBar(collapseAll) {
             return "<div id='jf-toolbar'>" +
-                        "<label id='jf-collapse-all' class = '"+ (collapseAll ? "jf-active" : "") +"'>Collapse All</label>" +
-                        "<label id='jf-expand-all' class = '"+ (collapseAll ? "" : "jf-active") +"'>Expand All</label>" +
+                        "<label id='jf-collapse-all'>Collapse All</label>" +
+                        "<label id='jf-expand-all'>Expand All</label>" +
                     "</div>";
         }
 
         return this.each(function() {
+            console.time("SP");
             try {
                 if(jsonSource) {
                     if($.type(jsonSource) == "object" || $.type(jsonSource) == "array") {
@@ -169,10 +160,17 @@
             } else {
                 $(this).html(braces[type].open + braces[type].close);
             }
-            bindings();
+            var elements = {
+                collapsibleDivs: $('span.jf-collapsible-title').siblings('div'),
+                collapsibleKeys: $('span.jf-collapsible-title').children('.jf-key')
+            };
+
+            bindings(elements);
+
             if(jf.settings.collapse) {
-                jfHide($('#jf-formattedJSON .jf-collapsible-title, #jf-formattedJSON .jf-parent-brace'));
+                jfHide(elements.collapsibleDivs, elements.collapsibleKeys);
             }
+            console.timeEnd("SP");
         });
     };
 })(jQuery, window, document);

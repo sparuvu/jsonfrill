@@ -4,6 +4,7 @@
     <title>Demo page</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="src/jsonFrill.js"></script>
+    <script src="javascripts/demo.js"></script>
     <link href="src/jsonFrill.css" rel="stylesheet" media="all"/>
   </head>
   <body>
@@ -13,7 +14,8 @@
     </div>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('#target').jsonFrill({collapse: true, toolbar: true}, $('#target').text());
+        //$('#target').jsonFrill({collapse: true, toolbar: true}, $("#target").text());
+        $('#target').jsonFrill({collapse: false, toolbar: true}, demo);
       });
     </script>
   </body>
