@@ -20,6 +20,8 @@
         var _indentationLevel = 1,
             lineBreak = "</br>",
             seperator = " : ",
+            parentBrace = '<span class="jf-open-brace jf-parent-brace">{</span>',
+            collapsedClass = jf.settings.collapse ? "jf-collapsed" : "",
             braces = {
               "object": {
                   open: '<span class="jf-open-brace">{</span>',
@@ -31,19 +33,15 @@
               }
             },
             $ellipses = '<span class="jf-ellipses jf-hide">...</span>',
-            TAB_SIZE = (function(){var tab = "";for(i = 1;i < jf.settings.tabSize; i++){tab += " ";} return tab;}()),
-            SPACES = addSpaces();
+            TAB_SIZE = new Array(jf.settings.tabSize > 0 ? jf.settings.tabSize : 0).join(' '),
+            SPACES = "";
 
         function processPrimitive(key, value, type) {
-            return '<div class="jf-prop">' + getKey(key) + seperator + '<span class="jf-value jf-' + type +'">' + value + '</span></div>';
+            return '<div class="jf-prop jf-item ' + collapsedClass + ' " >' + getKey(key) + seperator + '<span class="jf-value jf-' + type +'">' + value + '</span></div>';
         }
 
-        function addSpaces() {
-            var emptyString = "";
-            for(var i = 0; i< _indentationLevel; i++) {
-                emptyString += "| " + TAB_SIZE;
-            }
-            return emptyString;
+        function addSpaces(level) {
+            return '<span class="jf-spaces">' + new Array(level + 1).join("| " + TAB_SIZE) + '</span>';
         }
 
         function getKey(key, jfClass) {
@@ -55,7 +53,7 @@
 
         function processNonPrimitive(openBrace, closeBrace, key, value) {
             var temp = "";
-            SPACES = addSpaces(++_indentationLevel);
+                SPACES = addSpaces(++_indentationLevel);
             var str = process(value);
             SPACES = addSpaces(--_indentationLevel);
             if(str) {
@@ -63,7 +61,7 @@
             } else {
                 temp = getKey(key) + seperator + openBrace + " " + closeBrace;
             }
-            return '<div class="jf-collapsible">'+temp+'</div>';
+            return '<div class="jf-collapsible jf-item '+ collapsedClass +' ">'+temp+'</div>';
         }
 
         function process(obj) {
@@ -82,28 +80,34 @@
             return str;
         }
 
-        function jfShow($obj, $key) {
-            $obj.slideDown(50).removeClass('jf-collapsed');
-            $obj.siblings('.jf-ellipses').fadeOut('fast');
+        function jfShow($obj, $key, animate) {
+            (animate ? $obj.slideDown(40) : $obj.show()).removeClass('jf-collapsed').siblings('.jf-ellipses').fadeOut('fast');
             $key.addClass('jf-collapse');
         }
 
-        function jfHide($obj, $key) {
-            $obj.slideUp(50).addClass('jf-collapsed');
-            $obj.siblings('.jf-ellipses').fadeIn('fast');
+        function jfHide($obj, $key, animate) {
+            (animate ? $obj.slideUp(40) : $obj.hide()).addClass('jf-collapsed').siblings('.jf-ellipses').fadeIn('fast');
             $key.removeClass('jf-collapse');
         }
 
-        function bindings(elements) {
-            $('div#jf-formattedJSON').on('click', 'div.jf-collapsible-title, div.jf-parent-brace', function(e){
+        function bindings() {
+            var $title = $('span.jf-collapsible-title'),
+                elements = {
+                    collapsibleDivs: $title.siblings('div.jf-item'),
+                    collapsibleKeys: $title.children('span.jf-key'),
+                    formattedJSON: $('div#jf-formattedJSON')
+                };
+
+            elements.formattedJSON.on('click', 'span.jf-collapsible-title', function(e){
                 e.preventDefault();
-                var $divs = $(this).siblings('div'),
-                    $key = $(this).children('.jf-key');
-                if($divs.hasClass('jf-collapsed')) {
-                    jfShow($divs, $key);
-                } else {
-                    jfHide($divs, $key);
-                }
+                var $divs = $(this).siblings('div'), $key = $(this).children('span.jf-key');
+                $divs.hasClass('jf-collapsed') ? jfShow($divs, $key, true) : jfHide($divs, $key, true);
+            });
+
+            elements.formattedJSON.on('click', 'span.jf-parent-brace', function(e){
+                e.preventDefault();
+                var $divs = $(this).siblings('div'), $key = $(this).children('.jf-key');
+                $divs.hasClass('jf-collapsed') ? jfShow($divs, $key, true) : jfHide($divs, $key, true);
             });
 
             $('div.jf-prop').hover(function(e) {
@@ -116,9 +120,14 @@
             });
 
             $('div#jf-toolbar').on('click', "label", function(){
-                $(this).text() === 'Expand All' ? jfShow($('div.jf-collapsed'), $keys)
+                $(this).text() === 'Expand All' ? jfShow($('div.jf-collapsed'), elements.collapsibleKeys)
                     : jfHide(elements.collapsibleDivs, elements.collapsibleKeys);
             });
+
+            if(jf.settings.collapse) {
+                elements.formattedJSON.children('.jf-ellipses').show();
+            }
+
         }
 
         function toolBar(collapseAll) {
@@ -130,6 +139,7 @@
 
         return this.each(function() {
             console.time("SP");
+            console.time("sanitize");
             try {
                 if(jsonSource) {
                     if($.type(jsonSource) == "object" || $.type(jsonSource) == "array") {
@@ -148,11 +158,15 @@
                 }
                 $(this).html(jsonSource);
             }
+            console.timeEnd("sanitize");
+            console.time("Process");
             var str = process(json), type = $.type(json);
+            console.timeEnd("Process");
+            console.time("render");
             if(str) {
                 SPACES = addSpaces(--_indentationLevel);
                 var formattedJSON = '<div id="jf-formattedJSON" class="jf-collapsible">'+
-                                        $(braces[type].open).addClass('jf-parent-brace')[0].outerHTML + $ellipses +
+                                        parentBrace + $ellipses +
                                         str + SPACES + braces[type].close; +
                                     '</div>',
                     toolbar = jf.settings.toolbar ? toolBar(jf.settings.collapse) : "";
@@ -160,16 +174,8 @@
             } else {
                 $(this).html(braces[type].open + braces[type].close);
             }
-            var elements = {
-                collapsibleDivs: $('span.jf-collapsible-title').siblings('div'),
-                collapsibleKeys: $('span.jf-collapsible-title').children('.jf-key')
-            };
-
-            bindings(elements);
-
-            if(jf.settings.collapse) {
-                jfHide(elements.collapsibleDivs, elements.collapsibleKeys);
-            }
+            console.timeEnd("render");
+            bindings();
             console.timeEnd("SP");
         });
     };

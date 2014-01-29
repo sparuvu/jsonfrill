@@ -60,7 +60,7 @@
   margin-top: 2px;
 }
 
-.jf-hide {
+.jf-hide, .jf-collapsed {
   display: none;
 }
 
@@ -90,6 +90,10 @@
 
 .jf-collapsible-title .jf-collapse:before {
  content: "-";
+}
+
+.jf-collapsed {
+  display: none;
 }
 
 .jf-collapsible-title .jf-collapse:before, .jf-collapsible-title .jf-key:before {
@@ -126,4 +130,8 @@
 
 #jf-expand-all {
   padding-left: 10px;
+}
+
+.jf-spaces {
+  color: #999;
 }
