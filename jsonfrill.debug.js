@@ -138,6 +138,8 @@
         }
 
         return this.each(function() {
+            console.time("SP");
+            console.time("sanitize");
             try {
                 if(jsonSource) {
                     if($.type(jsonSource) == "object" || $.type(jsonSource) == "array") {
@@ -156,7 +158,11 @@
                 }
                 $(this).html(jsonSource);
             }
+            console.timeEnd("sanitize");
+            console.time("Process");
             var str = process(json), type = $.type(json);
+            console.timeEnd("Process");
+            console.time("render");
             if(str) {
                 SPACES = addSpaces(--_indentationLevel);
                 var formattedJSON = '<div id="jf-formattedJSON" class="jf-collapsible">'+
@@ -168,7 +174,9 @@
             } else {
                 $(this).html(braces[type].open + braces[type].close);
             }
+            console.timeEnd("render");
             bindings();
+            console.timeEnd("SP");
         });
     };
 })(jQuery, window, document);
