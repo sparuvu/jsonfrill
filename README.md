@@ -1,4 +1,4 @@
-jsonFrill v0.1
+jsonfrill v0.1
 A jQuery plugin to render the formatted, collapsible and color coded json.
 
 [Demo](http://sparuvu.github.io/jsonfrill)
