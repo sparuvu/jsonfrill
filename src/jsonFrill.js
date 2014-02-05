@@ -34,7 +34,7 @@
             },
             $ellipses = '<span class="jf-ellipses jf-hide">...</span>',
             TAB_SIZE = new Array(jf.settings.tabSize > 0 ? jf.settings.tabSize : 0).join(' '),
-            SPACES = "";
+            SPACES = addSpaces(_indentationLevel);
 
         function processPrimitive(key, value, type) {
             return '<div class="jf-prop jf-item ' + collapsedClass + ' " >' + getKey(key) + seperator + '<span class="jf-value jf-' + type +'">' + value + '</span></div>';
@@ -46,18 +46,18 @@
 
         function getKey(key, jfClass) {
             if(jfClass) {
-                return '<span class="'+jfClass+'">'+SPACES + '<span class="jf-key jf-collapse">' + key + '</span></span>';
+                return '<span class="'+jfClass+'">' + SPACES + '<span class="jf-key jf-collapse">' + key + '</span></span>';
             }
             return '<span class="jf-key">' + SPACES + key + '</span>';
         }
 
         function processNonPrimitive(openBrace, closeBrace, key, value) {
             var temp = "";
-                SPACES = addSpaces(++_indentationLevel);
-            var str = process(value);
+            SPACES = addSpaces(++_indentationLevel);
+            temp = process(value);
             SPACES = addSpaces(--_indentationLevel);
-            if(str) {
-                temp = getKey(key, "jf-collapsible-title") + seperator + openBrace + $ellipses + lineBreak + str + SPACES + closeBrace;
+            if(temp) {
+                temp = getKey(key, "jf-collapsible-title") + seperator + openBrace + $ellipses + lineBreak + temp + SPACES + closeBrace;
             } else {
                 temp = getKey(key) + seperator + openBrace + " " + closeBrace;
             }
@@ -72,12 +72,16 @@
             for (var key in obj) {
                 var type = $.type(obj[key]);
                 if(type == "object" || type == "array") {
-                    str += processNonPrimitive(braces[type].open, braces[type].close, key, obj[key]);
+                    str += processNonPrimitive(braces[type].open, braces[type].close, escape(key), obj[key]);
                 } else {
-                    str += processPrimitive(key, obj[key], type);
+                    str += processPrimitive(escape(key), ($.type(obj[key]) === "string" ? escape(obj[key]) : obj[key]), type);
                 }
             }
             return str;
+        }
+
+        function escape(str) {
+            return str.replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
 
         function jfShow($obj, $key, animate) {
