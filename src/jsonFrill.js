@@ -81,7 +81,7 @@
         }
 
         function escape(str) {
-            return str.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
 
         function jfShow($obj, $key, animate) {
