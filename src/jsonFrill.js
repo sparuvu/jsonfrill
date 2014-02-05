@@ -72,12 +72,16 @@
             for (var key in obj) {
                 var type = $.type(obj[key]);
                 if(type == "object" || type == "array") {
-                    str += processNonPrimitive(braces[type].open, braces[type].close, key, obj[key]);
+                    str += processNonPrimitive(braces[type].open, braces[type].close, escape(key), obj[key]);
                 } else {
-                    str += processPrimitive(key, obj[key], type);
+                    str += processPrimitive(escape(key), ($.type(obj[key]) === "string" ? escape(obj[key]) : obj[key]), type);
                 }
             }
             return str;
+        }
+
+        function escape(str) {
+            return str.replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
 
         function jfShow($obj, $key, animate) {

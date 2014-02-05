@@ -8,13 +8,42 @@
     <link href="src/jsonFrill.css" rel="stylesheet" media="all"/>
   </head>
   <body>
-    <div id="target">
-      {"test":12,"glossary":{"title":"dsfkjnds</span>glossary",
-      "GlossDiv":{"title":"S","GlossList":{"GlossEntry":{"ID":"SGML","SortAs":"SGML","GlossTerm":"Standard Generalized Markup Language","Acronym":"SGML","Abbrev":"ISO 8879:1986","GlossDef":{"para":"A meta-markup language, used to create markup languages such as DocBook.","GlossSeeAlso":["GML","XML"]},"GlossSee":"dsfkjnds</span>", "abc":[], "def":{}}}}}}
-    </div>
+    <div id="target"></div>
     <script type="text/javascript">
+      var sample = {
+                    "test": 12,
+                    "glossary": {
+                      "title": "dsfkjndsglossary",
+                      "GlossDiv": {
+                        "title": "S",
+                        "GlossList": {
+                          "GlossEntry": {
+                            "ID": "SGML",
+                            "SortAs": "SGML",
+                            "GlossTerm": "Standard Generalized Markup Language",
+                            "Acronym": "SGML",
+                            "Abbrev": "ISO 8879:1986",
+                            "GlossDef": {
+                              "para": "<span>A meta-markup language, used to create markup languages such as DocBook.",
+                              "GlossSeeAlso": [
+                                "GML",
+                                "XML"
+                              ]
+                            },
+                            "<span>GlossSee</span>": "dsfkjnds</div>",
+                            "abc": [
+
+                            ],
+                            "def": {
+
+                            }
+                          }
+                        }
+                      }
+                    }
+                  };
       $(document).ready(function(){
-        $('#target').jsonFrill({collapse: true, toolbar: true}, $("#target").text());
+        $('#target').jsonFrill({collapse: false, toolbar: true}, sample);
         // $('#target').jsonFrill({collapse: false, toolbar: true}, demo);
       });
     </script>
